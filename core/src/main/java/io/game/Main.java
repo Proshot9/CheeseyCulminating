@@ -19,11 +19,13 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		anim.create();
+
 	}
 
 	@Override
 	public void render() {
 		anim.render();
+
 	}
 
 	@Override

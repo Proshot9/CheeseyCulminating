@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
  */
 public class Main extends ApplicationAdapter {
 	Animator anim = new Animator();
-
+	
 	@Override
 	public void create() {
 		anim.create();
@@ -24,7 +24,11 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		Gdx.gl.glClearColor(1, 1, 1,0);
+		ScreenUtils.clear(1, 1, 1, 0);
 		anim.render();
+		
+		
 
 	}
 

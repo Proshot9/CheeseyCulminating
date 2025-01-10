@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Animator  {
 	
-	private static final int col = 3, row = 1;
+	private static final int col = 2, row = 1;
 	
     SpriteBatch batch;
     Texture image;
@@ -22,10 +22,10 @@ public class Animator  {
 	float time;
     
     
-
+	Player player = new Player(100);
     public void create() {
         batch = new SpriteBatch();
-        walkSheet = new Texture("spritesheet.png");
+        walkSheet = new Texture("playerSprite_Scale0.4.png");
         
         TextureRegion[][] tmp = TextureRegion.split(walkSheet,
         		walkSheet.getWidth() / col,
@@ -39,13 +39,14 @@ public class Animator  {
 			}
 		}
 		
-		walkAnimation = new Animation<TextureRegion>(0.1f, walkFrames);
+		walkAnimation = new Animation<TextureRegion>(0.2f, walkFrames);
 		
 		time =0;
     }
 
     public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        player.playerMovement();
+        
         
         time += Gdx.graphics.getDeltaTime(); 
         TextureRegion currentFrame = walkAnimation.getKeyFrame(time, true);
@@ -53,7 +54,7 @@ public class Animator  {
         
         
         batch.begin();
-        batch.draw(currentFrame, 50, 50); 
+        batch.draw(currentFrame, player.playerX,player.playerY); 
         batch.end();
     	  
        }

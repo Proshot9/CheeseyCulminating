@@ -13,7 +13,7 @@ public class Player {
 	public float playerX = 0; //the players x coordinate on the 2d scene
 	public float playerY = 0; //the players y coordinate on the 2d scene
 
-	Player(int Health) {
+	public Player(int Health) {
 		this.Health = Health;
 	}
 

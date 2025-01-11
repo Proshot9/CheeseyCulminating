@@ -23,6 +23,7 @@ public class MainGameScreen implements Screen {
 	Texture walkSheetMirrored;
 	Texture shopFront;
 	Texture playerIdle;
+	Texture playerIdleFlipped;
 
 	Rectangle player_rect;
 	Rectangle shopFront_rect;
@@ -42,16 +43,17 @@ public class MainGameScreen implements Screen {
 
 		fade.setColor(1f, 1f, 1f, 0f);
 
-		fade.addAction(Actions.fadeIn(5f));
+		fade.addAction(Actions.fadeIn(5f)); // adds the fadeIn action to the fade actor
 
 		playerIdle = new Texture("playerIdle.png");
+		playerIdleFlipped = new Texture ("playerIdle_Flipped.png");
 		walkSheet = new Texture("playerSprite_Scale0.4.png");
 		walkSheetMirrored = new Texture("playerSprite_Scale0.4_Flipped.png");
 
 		shopFront = new Texture("shopFront.png");
 
 		player_rect = new Rectangle(player.playerX, player.playerY, 0, 0);
-		shopFront_rect = new Rectangle(500 + 25, 500 + 50, shopFront.getWidth() - 50, shopFront.getHeight() - 50);
+		shopFront_rect = new Rectangle(500, 500, shopFront.getWidth(), shopFront.getHeight());
 
 		TextureRegion[][] walking = TextureRegion.split(walkSheet, walkSheet.getWidth() / col,
 				walkSheet.getHeight() / row);
@@ -71,8 +73,6 @@ public class MainGameScreen implements Screen {
 
 		}
 
-		
-		
 		int index2 = 0;
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
@@ -110,19 +110,29 @@ public class MainGameScreen implements Screen {
 		TextureRegion currentFrame = walkAnimation.getKeyFrame(time, true);
 		TextureRegion currentFrameLeft = walkAnimationLeft.getKeyFrame(time, true);
 
-		game.batch.draw(shopFront, 500, 500);
-
-		if (player.isMovingLeft) {
+		game.batch.draw(shopFront, 460, 460);
+		
+		if (!player.isMoving && !player.isMovingLeft) {
+			game.batch.draw(playerIdle, player.playerX,player.playerY);
+			
+		}
+		else if (!player.isMoving && player.isMovingLeft) {
+			game.batch.draw(playerIdleFlipped, player.playerX,player.playerY);
+			
+		}
+			else if (player.isMovingLeft && player.isMoving) {
 			game.batch.draw(currentFrame, player.playerX, player.playerY);
-		} else if (!player.isMovingLeft) {
+		} else if (!player.isMovingLeft && player.isMoving) {
 			game.batch.draw(currentFrameLeft, player.playerX, player.playerY);
 		}
+		
+		
 
-		player_rect = new Rectangle(player.playerX, player.playerY, playerIdle.getWidth(),
-				playerIdle.getHeight());
-		shopFront_rect = new Rectangle(500 + 50, 500 + 65, shopFront.getWidth() - 75, shopFront.getHeight() - 65);
+	player_rect=new Rectangle(player.playerX,player.playerY,playerIdle.getWidth(),playerIdle.getHeight());
+	shopFront_rect = new Rectangle(485, 525, shopFront.getWidth() - 50, shopFront.getHeight()-65);
 
-		game.batch.end();
+	game.batch.end();
+
 	}
 
 	@Override

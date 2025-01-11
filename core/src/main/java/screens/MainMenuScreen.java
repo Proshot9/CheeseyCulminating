@@ -32,7 +32,7 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void show() {
 		logo = new Texture("ScamblingLogo.png");
-		text = new Texture("AnyKeyText.png");
+		text = new Texture("AnyKeyTxt.png");
 		bg = new Texture("bgColor.png");
 		fade = new Actor();
 
@@ -59,7 +59,7 @@ public class MainMenuScreen implements Screen {
 
 		// game.batch.begin();
 		menu.begin();
-		menu.draw(bg, 0, 0, 2000, 1000);
+		menu.draw(bg, 0, 0, 1080, 720);
 		if (!isFade) {
 			menu.draw(logo, 270, 240);
 		}
@@ -84,7 +84,7 @@ public class MainMenuScreen implements Screen {
 		}
 
 		if (visible && !isFade) {
-			menu.draw(text, 270, 50);
+			menu.draw(text, 290, 150, 500, 200);
 		}
 		menu.end();
 		// game.batch.end();

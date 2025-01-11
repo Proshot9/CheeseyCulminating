@@ -9,13 +9,16 @@ public class Player {
 	private int Health;
 	
 
-	public float speed = 2f; //controls the players movement speed
+	public float speed = 1f; //controls the players movement speed
 	public float playerX; //the players x coordinate on the 2d scene
 	public float playerY; //the players y coordinate on the 2d scene
 	
 	//creates a new variable for where the player was before it was moved // Used for collisions
-	public float prevx ;
-	public float prevy ;
+	public float prevx =0;
+	public float prevy =0;
+	
+	//variable for direction of movement
+	public boolean isMovingLeft = false;
 
 	public Player(int Health) {
 		this.Health = Health;
@@ -27,7 +30,7 @@ public class Player {
 
 	//Controls the players movement with the keys "W", "A", "S", "D"
 	public void playerMovement() {
-		System.out.println(prevx + " " + prevy + " " + playerX+ " " + playerY);
+		System.out.println(prevx + " " + prevy + " " + playerX+ " " + playerY + " " + isMovingLeft);
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			prevy = playerY;
@@ -36,6 +39,7 @@ public class Player {
 			//System.out.println("W pressed");
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+			isMovingLeft = true;
 			prevx = playerX;
 			playerX-= Gdx.graphics.getDeltaTime() + speed; 
 
@@ -49,6 +53,7 @@ public class Player {
 			//System.out.println("S pressed");
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+			isMovingLeft = false;
 			prevx = playerX;
 			playerX+= Gdx.graphics.getDeltaTime() + speed; 
 			

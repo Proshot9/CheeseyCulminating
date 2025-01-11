@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import io.game.Main;
@@ -16,21 +17,33 @@ public class MainGameScreen implements Screen {
 	Texture image;
 	Animation<TextureRegion> walkAnimation;
 	Texture walkSheet;
+	Texture shopFront;
+	Texture playerIdle;
+
+	Rectangle player_rect;
+	Rectangle shopFront_rect;
 
 	float time;
 	Player player = new Player(100);
 	Main game;
-	
+
 	public MainGameScreen(Main game) {
 		this.game = game;
 	}
-	
+
 	@Override
 	public void show() {
+
+		playerIdle = new Texture("playerIdle.png");
 		walkSheet = new Texture("playerSprite_Scale0.4.png");
+		shopFront = new Texture("shopFront.png");
+
+		player_rect = new Rectangle(player.playerX, player.playerY,0,0);
+		shopFront_rect = new Rectangle(500+25,500+50, shopFront.getWidth()-50, shopFront.getHeight()-50);
 
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / col, walkSheet.getHeight() / row);
 
+		// grabs the
 		TextureRegion[] walkFrames = new TextureRegion[col * row];
 		int index = 0;
 		for (int i = 0; i < row; i++) {
@@ -47,18 +60,32 @@ public class MainGameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 0);
-		ScreenUtils.clear(1, 1, 1, 0);
+		game.batch.begin();
+		Gdx.gl.glClearColor(1, 1, 0, 0);
+		ScreenUtils.clear(1, 1, 0, 0);
 		
+		if (shopFront_rect.overlaps(player_rect)) {
+			player.playerX = player.prevx;
+			player.playerY = player.prevy; 
+			System.out.println("Player collided with shopfront");
+		}
+
 		player.playerMovement();
-		
-		
 
 		time += Gdx.graphics.getDeltaTime();
 		TextureRegion currentFrame = walkAnimation.getKeyFrame(time, true);
+		
+		
 
-		game.batch.begin();
+		game.batch.draw(shopFront, 500,500);
 		game.batch.draw(currentFrame, player.playerX, player.playerY);
+		
+
+		
+		 
+		player_rect = new Rectangle(player.playerX, player.playerY, currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
+		shopFront_rect = new Rectangle(500+25,500+50, shopFront.getWidth()-50, shopFront.getHeight()-50);
+
 		game.batch.end();
 	}
 

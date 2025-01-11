@@ -16,7 +16,7 @@ public class MainMenuScreen implements Screen {
 	Texture logo;
 	Texture text;
 	Texture bg;
-	
+
 	int time = 0;
 	boolean visible = true;
 
@@ -29,15 +29,14 @@ public class MainMenuScreen implements Screen {
 		logo = new Texture("ScamblingLogo.png");
 		text = new Texture("AnyKeyText.png");
 		bg = new Texture("bgColor.png");
-		
+
 		Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                visible = !visible; 
-            }
-        }, 0, 0.8f); // Start immediately, repeat every 0.5 seconds
-    }
-	
+			@Override
+			public void run() {
+				visible = !visible;
+			}
+		}, 0, 0.8f); // Start immediately, repeat every 0.8 seconds
+	}
 
 	@Override
 	public void render(float delta) {
@@ -45,20 +44,19 @@ public class MainMenuScreen implements Screen {
 		ScreenUtils.clear(0, 0, 1, 0);
 
 		game.batch.begin();
-		game.batch.draw(bg, 0,0, 2000,1000);
+		game.batch.draw(bg, 0, 0, 2000, 1000);
 		game.batch.draw(logo, 270, 240);
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
 			this.dispose();
-			game.setScreen(new MainGameScreen(game));
-		
+			game.setScreen(new MainGameScreen(game)); //switches from the main menu to the main game once they press any key
+
 		}
 		
 		if (visible) {
 			game.batch.draw(text, 270, 50);
 		}
-		
-		
+
 		game.batch.end();
 	}
 

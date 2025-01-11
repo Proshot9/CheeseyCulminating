@@ -97,11 +97,19 @@ public class MainGameScreen implements Screen {
 		game.batch.begin();
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		ScreenUtils.clear(0, 0, 0, 0);
-
+		
+		
+		//shopfront collision detection
 		if (shopFront_rect.overlaps(player_rect)) {
 			player.playerX = player.prevx;
 			player.playerY = player.prevy;
 			System.out.println("Player collided with shopfront");
+		}
+		
+		//the world border
+		if (player.playerX<0 || player.playerX > 1000 || player.playerY > 645 || player.playerY < 0) {
+			player.playerX = player.prevx;
+			player.playerY = player.prevy;
 		}
 
 		player.playerMovement();
@@ -112,6 +120,8 @@ public class MainGameScreen implements Screen {
 
 		game.batch.draw(shopFront, 460, 460);
 		
+		
+		//determines which player state to display
 		if (!player.isMoving && !player.isMovingLeft) {
 			game.batch.draw(playerIdle, player.playerX,player.playerY);
 			

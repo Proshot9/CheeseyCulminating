@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Player {
-	private int Health;
+	public int Health;
 	
-
+	//starting player speed and coordinates
 	public float speed = 1f; //controls the players movement speed
 	public float playerX = 480; //the players x coordinate on the 2d scene
 	public float playerY = 160; //the players y coordinate on the 2d scene
@@ -17,16 +17,12 @@ public class Player {
 	public float prevx = 480;
 	public float prevy = 0;
 	
-	//variable for direction of movement
+	//variables for movement
 	public boolean isMovingLeft = false;
 	public boolean isMoving = false;
 
 	public Player(int Health) {
 		this.Health = Health;
-	}
-
-	public int getHealth() {
-		return Health;
 	}
 
 	//Controls the players movement with the keys "W", "A", "S", "D"

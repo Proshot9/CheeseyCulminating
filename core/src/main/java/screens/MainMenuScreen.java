@@ -60,6 +60,8 @@ public class MainMenuScreen implements Screen {
 		// game.batch.begin();
 		menu.begin();
 		menu.draw(bg, 0, 0, 1080, 720);
+		
+		//draws the logo when the screen isn't transitioning
 		if (!isFade) {
 			menu.draw(logo, 270, 240);
 		}

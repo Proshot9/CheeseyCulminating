@@ -18,7 +18,7 @@ import io.game.Main;
 import io.game.Player;
 
 public class MainGameScreen implements Screen {
-	
+
 	roll buy = new roll();
 
 	private static final int col = 2, row = 1;
@@ -113,9 +113,9 @@ public class MainGameScreen implements Screen {
 		if (shopFront_interact.overlaps(player_rect)) {
 			font.getData().setScale(0.4f);
 			font.draw(game.batch, "E to Interact", 468f, 575f);
-			if (Gdx.input.isKeyJustPressed(Input.Keys.E))
-			System.out.println(String.valueOf(buy.setRarity(buy.buy())));
-			
+			if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+				System.out.println(String.valueOf(buy.setRarity(buy.buy())));
+			}
 		}
 
 		// shopfront collision detection

@@ -22,7 +22,9 @@ import io.game.Player;
 
 public class MainGameScreen implements Screen {
 
-	roll buy = new roll();
+	int level = 1;
+	int gold = 100;
+	roll gacha = new roll();
 
 	private static final int col = 2, row = 1;
 	Texture image;
@@ -49,23 +51,19 @@ public class MainGameScreen implements Screen {
 	TiledMap map;
 	OrthogonalTiledMapRenderer renderer;
 	OrthographicCamera camera;
-	
-	
-	
-	
+
 	public MainGameScreen(Main game) {
 		this.game = game;
 	}
 
 	@Override
 	public void show() {
-		
+
 		map = new TmxMapLoader().load("MainGameScreen_map.tmx");
-		
+
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera = new OrthographicCamera();
-		camera.translate(550,300,0);
-		
+		camera.translate(550, 300, 0);
 
 		fade = new Actor();
 		fade.setColor(1f, 1f, 1f, 0f);
@@ -126,15 +124,27 @@ public class MainGameScreen implements Screen {
 		game.batch.begin();
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		ScreenUtils.clear(0, 0, 0, 0);
-		
+
 		renderer.setView(camera);
 		renderer.render();
 
 		if (shopFront_interact.overlaps(player_rect)) {
+			int gain = gold - 100;
+			int buy = 0;
+			String rarity = "a";
+			rarity = Cost.rates(gain, buy);
 			font.getData().setScale(0.4f);
 			font.draw(game.batch, "E to Interact", 468f, 575f);
-			if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-				System.out.println(String.valueOf(buy.setRarity(buy.buy())));
+			font.draw(game.batch, "Gold:" + " " + gold, 550f, 450f);
+			font.draw(game.batch, "Rarity: " + rarity, 550f, 435f);
+			font.draw(game.batch, "profits: " + gain, 550f, 420f);
+			font.draw(game.batch, "Level: " + level + " -" + Cost.percent(level) + " per chest", 550f, 405f);
+			if (Gdx.input.isKeyJustPressed(Input.Keys.E) && (gold >= 10)) {
+				buy = gacha.buy();
+				gold = gold + Cost.rarity(Cost.rates(level, buy));
+				gold -= Cost.percent(level);
+				System.out.println(gold);
+				System.out.println(rarity);
 			}
 		}
 
@@ -170,8 +180,8 @@ public class MainGameScreen implements Screen {
 		} else if (!player.isMovingLeft && player.isMoving) {
 			game.batch.draw(currentFrameLeft, player.playerX, player.playerY);
 		}
-		
-		//updates the players hitbox
+
+		// updates the players hitbox
 		player_rect = new Rectangle(player.playerX, player.playerY, playerIdle.getWidth(), playerIdle.getHeight());
 		shopFront_rect = new Rectangle(485, 525, shopFront.getWidth() - 50, shopFront.getHeight() - 65);
 

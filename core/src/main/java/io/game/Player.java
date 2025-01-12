@@ -27,7 +27,6 @@ public class Player {
 
 	//Controls the players movement with the keys "W", "A", "S", "D"
 	public void playerMovement() {
-		System.out.println(prevx + " " + prevy + " " + playerX+ " " + playerY + " " + isMovingLeft + " " + isMoving);
 			isMoving = false;
 		
 		

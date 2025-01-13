@@ -25,6 +25,8 @@ public class MainGameScreen implements Screen {
 	int level = 1;
 	int gold = 100;
 	roll gacha = new roll();
+	int buy = 0;
+	String rarity;
 
 	private static final int col = 2, row = 1;
 	Texture image;
@@ -130,22 +132,27 @@ public class MainGameScreen implements Screen {
 
 		if (shopFront_interact.overlaps(player_rect)) {
 			int gain = gold - 100;
-			int buy = 0;
-			String rarity = "a";
-			rarity = Cost.rates(gain, buy);
 			font.getData().setScale(0.4f);
+			//displays
 			font.draw(game.batch, "E to Interact", 468f, 575f);
 			font.draw(game.batch, "Gold:" + " " + gold, 550f, 450f);
-			font.draw(game.batch, "Rarity: " + rarity, 550f, 435f);
 			font.draw(game.batch, "profits: " + gain, 550f, 420f);
 			font.draw(game.batch, "Level: " + level + " -" + Cost.percent(level) + " per chest", 550f, 405f);
 			if (Gdx.input.isKeyJustPressed(Input.Keys.E) && (gold >= 10)) {
+				//rolling for rarity
 				buy = gacha.buy();
-				gold = gold + Cost.rarity(Cost.rates(level, buy));
+				//given sell price per chest
 				gold -= Cost.percent(level);
-				System.out.println(gold);
-				System.out.println(rarity);
+				//depends on level depends on rarity
+				rarity = Cost.rates(level, buy);
+				gold = gold + Cost.rarity(rarity);
+			}if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+				int a= Cost.upgrade(gold, level);
+				level +=1;
+				System.out.print(a);
 			}
+			
+			font.draw(game.batch, "Rarity: " +  rarity , 550f, 435f);
 		}
 
 		// shopfront collision detection
@@ -187,6 +194,11 @@ public class MainGameScreen implements Screen {
 
 		game.batch.end();
 
+	}
+
+	private char[] stringOf(int upgrade) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

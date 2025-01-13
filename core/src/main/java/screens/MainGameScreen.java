@@ -59,15 +59,15 @@ public class MainGameScreen implements Screen {
 	@Override
 	public void show() {
 
-		map = new TmxMapLoader().load("MainGameScreen_map.tmx");
+		map = new TmxMapLoader().load("MainGameMap.tmx");
 
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera = new OrthographicCamera();
-		camera.translate(550, 300, 0);
+		camera.translate(520, 375, 0);
 
 		fade = new Actor();
 		fade.setColor(1f, 1f, 1f, 0f);
-		fade.addAction(Actions.fadeIn(4f)); // adds the fadeIn action to the fade actor
+		fade.addAction(Actions.fadeIn(1.5f)); // adds the fadeIn action to the fade actor
 
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 
@@ -155,7 +155,7 @@ public class MainGameScreen implements Screen {
 		}
 
 		// the world border
-		if (player.playerX < 0 || player.playerX > 1000 || player.playerY > 645 || player.playerY < 0) {
+		if (player.playerX < 0 || player.playerX > 970 || player.playerY > 680 || player.playerY < 20) {
 			player.playerX = player.prevx;
 			player.playerY = player.prevy;
 		}

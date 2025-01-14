@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import io.game.Cost;
+import io.game.Enemy;
 import io.game.Main;
 import io.game.Player;
 
@@ -53,13 +55,17 @@ public class MainGameScreen implements Screen {
 	TiledMap map;
 	OrthogonalTiledMapRenderer renderer;
 	OrthographicCamera camera;
-
+	
+	Enemy enemy = new Enemy();
+	
 	public MainGameScreen(Main game) {
 		this.game = game;
 	}
 
 	@Override
 	public void show() {
+		TextureRegion moveLeft = new TextureRegion(enemy.maggot,0,0,32,32);
+		enemy.show();
 
 		map = new TmxMapLoader().load("MainGameMap.tmx");
 
@@ -191,6 +197,8 @@ public class MainGameScreen implements Screen {
 		// updates the players hitbox
 		player_rect = new Rectangle(player.playerX, player.playerY, playerIdle.getWidth(), playerIdle.getHeight());
 		shopFront_rect = new Rectangle(485, 525, shopFront.getWidth() - 50, shopFront.getHeight() - 65);
+		
+		enemy.render();
 
 		game.batch.end();
 
@@ -229,6 +237,7 @@ public class MainGameScreen implements Screen {
 		walkSheet.dispose();
 		map.dispose();
 		renderer.dispose();
+		enemy.dispose();
 	}
 
 }

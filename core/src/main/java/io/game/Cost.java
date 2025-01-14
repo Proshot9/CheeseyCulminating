@@ -1,4 +1,4 @@
-package screens;
+package io.game;
 
 public class Cost {
 	public static int percent(int level) {
@@ -67,4 +67,3 @@ public class Cost {
 			return 1;
 		}
 	}
-

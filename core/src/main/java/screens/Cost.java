@@ -49,4 +49,22 @@ public class Cost {
 		return sell;
 
 	}
-}
+
+	public static int upgrade(int gold, int level) {
+		
+			if (gold >= 500 && level == 1) {
+				return 2;
+			}
+			if (gold >= 500 && level == 1) {
+				return 3;
+			}
+			if (gold >= 500 && level == 1) {
+				return 4;
+			}
+			if (gold >= 500 && level == 1) {
+				return 5;
+			}
+			return 1;
+		}
+	}
+

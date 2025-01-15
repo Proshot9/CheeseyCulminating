@@ -23,21 +23,19 @@ public class roll {
 		return rarity;
 	}
 
-	public String setRarity(int rarity) {
-
-		String israrity = null;
-		if (rarity <= 70) {
-			israrity = "common";
-		} else if (rarity <= 90) {
-			israrity = "uncommon";
-		} else if (rarity < 98) {
-			israrity = "rare";
-		} else if (rarity <= 99) {
-			israrity = "epic";
-		} else if (rarity <= 100) {
-			israrity = "legendary";
+	public int power(int level, String rarity) {
+		Random rand = new Random();
+		int power = 0; 
+		
+		if (level > 2) {
+			int min = 100 * level - 1;
+			power = rand.nextInt(min, 100 * level + 1);
+			return power;
+		} else if (level == 1) {
+			power = rand.nextInt(50, 100);
+			return power;
 		}
-		return israrity;
+		return 0;
 	}
 
 }

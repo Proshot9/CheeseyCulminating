@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import io.game.Cost;
+import io.game.Enemy;
 import io.game.Main;
 import io.game.Player;
 
@@ -133,26 +135,30 @@ public class MainGameScreen implements Screen {
 		if (shopFront_interact.overlaps(player_rect)) {
 			int gain = gold - 100;
 			font.getData().setScale(0.4f);
-			//displays
+			// displays
 			font.draw(game.batch, "E to Interact", 468f, 575f);
 			font.draw(game.batch, "Gold:" + " " + gold, 550f, 450f);
 			font.draw(game.batch, "profits: " + gain, 550f, 420f);
-			font.draw(game.batch, "Level: " + level + " -" + Cost.percent(level) + " per chest", 550f, 405f);
-			if (Gdx.input.isKeyJustPressed(Input.Keys.E) && (gold >= 10)) {
-				//rolling for rarity
+			font.draw(game.batch, "Level: " + level + " \n-" + Cost.percent(level) + " per chest", 550f, 405f);
+			if (Gdx.input.isKeyJustPressed(Input.Keys.E) && (gold >= Cost.percent(level))) {
+				// rolling for rarity
 				buy = gacha.buy();
-				//given sell price per chest
+				// given sell price per chest
 				gold -= Cost.percent(level);
-				//depends on level depends on rarity
+				// depends on level depends on rarity
 				rarity = Cost.rates(level, buy);
 				gold = gold + Cost.rarity(rarity);
-			}if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-				int a= Cost.upgrade(gold, level);
-				level +=1;
-				System.out.print(a);
+			}
+			if (Gdx.input.isKeyJustPressed(Input.Keys.Q) && level < 5) {
+				if (gold >= Cost.upgrade(gold, level) && level == Cost.level(Cost.upgrade(gold, level))) {
+					gold -= Cost.upgrade(gold, level);
+					level += 1;
+					System.out.print(level + " " + "ah");
+				} 
 			}
 			
-			font.draw(game.batch, "Rarity: " +  rarity , 550f, 435f);
+			System.out.println(gacha.power(level, rarity));
+			font.draw(game.batch, "Rarity: " + rarity, 550f, 435f);
 		}
 
 		// shopfront collision detection
@@ -194,11 +200,6 @@ public class MainGameScreen implements Screen {
 
 		game.batch.end();
 
-	}
-
-	private char[] stringOf(int upgrade) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

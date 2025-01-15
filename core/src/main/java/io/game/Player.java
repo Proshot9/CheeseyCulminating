@@ -9,7 +9,7 @@ public class Player {
 	public int Health;
 	
 	//starting player speed and coordinates
-	public float speed = 1f; //controls the players movement speed
+	public float speed = 2f; //controls the players movement speed
 	public float playerX = 480; //the players x coordinate on the 2d scene
 	public float playerY = 160; //the players y coordinate on the 2d scene
 	
@@ -28,7 +28,6 @@ public class Player {
 	//Controls the players movement with the keys "W", "A", "S", "D"
 	public void playerMovement() {
 			isMoving = false;
-		
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			isMoving = true;;

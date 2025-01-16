@@ -64,14 +64,15 @@ public class MainGameScreen implements Screen {
 
 	@Override
 	public void show() {
-		TextureRegion moveLeft = new TextureRegion(enemy.maggot,0,0,32,32);
-		enemy.show();
+		
 
 		map = new TmxMapLoader().load("MainGameMap.tmx");
 
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera = new OrthographicCamera();
 		camera.translate(520, 375, 0);
+		
+		
 
 		fade = new Actor();
 		fade.setColor(1f, 1f, 1f, 0f);
@@ -79,16 +80,16 @@ public class MainGameScreen implements Screen {
 
 		font = new BitmapFont(Gdx.files.internal("font.fnt"));
 
-		playerIdle = new Texture("playerIdle.png");
-		playerIdleFlipped = new Texture("playerIdle_Flipped.png");
-		walkSheet = new Texture("playerSprite_Scale0.4.png");
-		walkSheetMirrored = new Texture("playerSprite_Scale0.4_Flipped.png");
+		playerIdle = new Texture("playerIdle0.38.png");
+		playerIdleFlipped = new Texture("playerIdle0.38_flipped.png");
+		walkSheet = new Texture("playerWalk0.19.png");
+		walkSheetMirrored = new Texture("playerWalk0.19_flipped.png");
 
-		shopFront = new Texture("shopFront.png");
+		shopFront = new Texture("shopFront0.5.png");
 
 		player_rect = new Rectangle(player.playerX, player.playerY, 0, 0);
-		shopFront_rect = new Rectangle(500, 500, shopFront.getWidth(), shopFront.getHeight());
-		shopFront_interact = new Rectangle(485, 485, 60f, 15f);
+		shopFront_rect = new Rectangle(460,490, shopFront.getWidth(), shopFront.getHeight()-30);
+		shopFront_interact = new Rectangle(460, 460, 60f, 5f);
 
 		TextureRegion[][] walking = TextureRegion.split(walkSheet, walkSheet.getWidth() / col,
 				walkSheet.getHeight() / row);
@@ -132,15 +133,18 @@ public class MainGameScreen implements Screen {
 		game.batch.begin();
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		ScreenUtils.clear(0, 0, 0, 0);
-
+		
+		camera.position.set(player.playerX,player.playerY, 0);
+		camera.update();
 		renderer.setView(camera);
 		renderer.render();
+		
 
 		if (shopFront_interact.overlaps(player_rect)) {
 			int gain = gold - 100;
-			font.getData().setScale(0.4f);
+			font.getData().setScale(0.2f);
 			//displays
-			font.draw(game.batch, "E to Interact", 468f, 575f);
+			font.draw(game.batch, "E to Interact", 469f, 515f);
 			font.draw(game.batch, "Gold:" + " " + gold, 550f, 450f);
 			font.draw(game.batch, "profits: " + gain, 550f, 420f);
 			font.draw(game.batch, "Level: " + level + " -" + Cost.percent(level) + " per chest", 550f, 405f);
@@ -168,7 +172,7 @@ public class MainGameScreen implements Screen {
 		}
 
 		// the world border
-		if (player.playerX < 0 || player.playerX > 970 || player.playerY > 680 || player.playerY < 20) {
+		if (player.playerX < 20 || player.playerX > 1000|| player.playerY > 680 || player.playerY < 20) {
 			player.playerX = player.prevx;
 			player.playerY = player.prevy;
 		}
@@ -196,23 +200,21 @@ public class MainGameScreen implements Screen {
 
 		// updates the players hitbox
 		player_rect = new Rectangle(player.playerX, player.playerY, playerIdle.getWidth(), playerIdle.getHeight());
-		shopFront_rect = new Rectangle(485, 525, shopFront.getWidth() - 50, shopFront.getHeight() - 65);
 		
-		enemy.render();
+		
+		
 
 		game.batch.end();
 
 	}
 
-	private char[] stringOf(int upgrade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void resize(int width, int height) {
-		camera.viewportHeight = height;
-		camera.viewportWidth = width;
+		//controls the camera zoom 
+		camera.viewportHeight = height/3f;
+		camera.viewportWidth = width/3f;
+		
 		camera.update();
 	}
 
@@ -237,7 +239,7 @@ public class MainGameScreen implements Screen {
 		walkSheet.dispose();
 		map.dispose();
 		renderer.dispose();
-		enemy.dispose();
+		
 	}
 
 }

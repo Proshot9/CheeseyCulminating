@@ -26,24 +26,4 @@ public class Enemy {
 			enemyY-=1;
 		}
 	}
-	
-	public void show() {
-		maggot = new Texture("Maggot.png");
-		batch = new SpriteBatch();
-		
-		
-	
-	}
-
-	public void render() {
-		batch.begin();
-		batch.draw(moveLeft, enemyX, enemyY);
-		batch.end();
-		
-	}
-
-	public void dispose() {
-		maggot.dispose();
-		batch.dispose();
-	}
 }

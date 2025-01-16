@@ -9,13 +9,13 @@ public class Player {
 	public int Health;
 	
 	//starting player speed and coordinates
-	public float speed = 2f; //controls the players movement speed
+	public float speed = 1f; //controls the players movement speed
 	public float playerX = 480; //the players x coordinate on the 2d scene
 	public float playerY = 160; //the players y coordinate on the 2d scene
 	
 	//creates a new variable for where the player was before it was moved // Used for collisions
 	public float prevx = 480;
-	public float prevy = 0;
+	public float prevy = 160;
 	
 	//variables for movement
 	public boolean isMovingLeft = false;

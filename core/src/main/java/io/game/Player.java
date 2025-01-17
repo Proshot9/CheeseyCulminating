@@ -38,7 +38,7 @@ public class Player {
 	// Controls the players movement with the keys "W", "A", "S", "D"
 	public void playerMovement() {
 		isMoving = false;
-		System.out.println(prevx + " " + prevy + " " + playerX + " " + playerY + " " + isMovingLeft);
+		//System.out.println(prevx + " " + prevy + " " + playerX + " " + playerY + " " + isMovingLeft);
 
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			isMoving = true;

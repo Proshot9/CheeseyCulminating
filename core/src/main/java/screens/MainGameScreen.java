@@ -78,6 +78,7 @@ public class MainGameScreen implements Screen {
 
 	// creates player object (hp, passes the main class)
 	Player player = new Player(100, game);
+	Enemy enemy = new Enemy(400,300);
 
 	@Override
 	public void show() {
@@ -117,6 +118,10 @@ public class MainGameScreen implements Screen {
 
 		TextureRegion[] walkFrames = new TextureRegion[col * row];
 		TextureRegion[] walkFramesLeft = new TextureRegion[col * row];
+		
+		
+		//enemy
+		
 
 		// gets the texture region for each frame by going through the top row then
 		// moves down a row once it reached the last column until its finished
@@ -217,6 +222,9 @@ public class MainGameScreen implements Screen {
 		// updates the players hitbox
 		player_rect = new Rectangle(player.playerX, player.playerY, player.playerIdle.getWidth(),
 				player.playerIdle.getHeight());
+		
+		enemy.spawnEnemy(game);
+		enemy.enemyMove(game);
 
 		game.batch.end();
 

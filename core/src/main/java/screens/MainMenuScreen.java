@@ -89,7 +89,7 @@ public class MainMenuScreen implements Screen {
 			menu.draw(text, 290, 150, 500, 200);
 		}
 		menu.end();
-		// game.batch.end();
+		
 	}
 
 	@Override

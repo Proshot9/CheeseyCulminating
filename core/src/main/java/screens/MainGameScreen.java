@@ -79,6 +79,10 @@ public class MainGameScreen implements Screen {
 	// creates player object (hp, passes the main class)
 	Player player = new Player(100, game);
 	Enemy enemy = new Enemy(400,300);
+	Enemy enemy2 = new Enemy(275,600);
+	Enemy enemy3 = new Enemy(500,250);
+	Enemy enemy4 = new Enemy(754,634);
+	Enemy enemy5 = new Enemy(583,153);
 
 	@Override
 	public void show() {
@@ -224,7 +228,11 @@ public class MainGameScreen implements Screen {
 				player.playerIdle.getHeight());
 		
 		enemy.spawnEnemy(game);
-		enemy.enemyMove(game);
+		enemy2.spawnEnemy(game);
+		enemy3.spawnEnemy(game);
+		enemy4.spawnEnemy(game);
+		enemy5.spawnEnemy(game);
+		
 
 		game.batch.end();
 
